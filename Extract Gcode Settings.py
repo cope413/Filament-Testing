@@ -3,6 +3,7 @@
 import os
 from os import path
 import shutil
+from google_sheets import login, upload
 
 source_path      = "New Gcode/"
 destination_path = "Old Gcode/"
@@ -26,6 +27,8 @@ def import_settings(file_path):
 
 
 def import_mc_gcode():
+	print(':: Importing data from GCode files')
+
 	# MatterControl GCode directory
 	directory = os.path.expandvars(source_path)
 
@@ -53,6 +56,8 @@ def import_mc_gcode():
 
 	csv_stream.write('\n')
 
+	values_batch = []
+
 	# Loop over all files in gcode folder
 	for file_name in os.listdir(directory):
 
@@ -65,10 +70,13 @@ def import_mc_gcode():
 
 		full_path = os.path.join(directory, file_name)
 
+		values = []
+
 		# Extract settings
 		(settings, all_lines) = import_settings(full_path)
 		if len(settings) > 40:
 			csv_stream.write("%s," % (name_without_extension))
+			values.append(name_without_extension)
 
 		temp_line = [l for l in all_lines if l.startswith("M109")][0]
 		bed_line = [x for x in all_lines if x.startswith("M190")][0]
@@ -88,14 +96,23 @@ def import_mc_gcode():
 
 		for c in columns:
 			csv_stream.write("%s," % settings[c])
+			values.append(settings[c])
+
 		csv_stream.write('%s,' % nozzle_temp.strip())
+		values.append(nozzle_temp.strip())
 		csv_stream.write('%s' % bed_temp.strip())
+		values.append(bed_temp.strip())
+
 		csv_stream.write('\n')
+		values_batch.append(values)
 
 	csv_stream.close()
+	return values_batch
 
 
 def move_files():
+	print(':: Moving files')
+	source = os.listdir(source_path)
 	for files in source:
 		if files.endswith(".gcode"):
 			gcode = os.path.join(files)
@@ -103,14 +120,12 @@ def move_files():
 
 
 # Kick off import on load
-import_mc_gcode()
+data = import_mc_gcode()
 
-source = os.listdir(source_path)
-
-for file_name in source:
-	if file_name.endswith(".gcode"):
-		gcode = os.path.join(source_path, file_name)
-		print(gcode)
-
+if len(data) > 0:
+	creds = login()
+	upload(creds, data)
+else:
+	print(':: No data')
 
 move_files()
