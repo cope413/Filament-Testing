@@ -1,6 +1,12 @@
+#!/usr/bin/env python3
+
 import os
 from os import path
+import shutil
 
+source_path      = "New Gcode/"
+destination_path = "Old Gcode/"
+output_csv		 = "slice-settings.csv"
 
 def import_settings(file_path):
 	with open(file_path) as gcode_file:
@@ -21,10 +27,10 @@ def import_settings(file_path):
 
 def import_mc_gcode():
 	# MatterControl GCode directory
-	directory = os.path.expandvars(r'\Users\taylo\Documents\Tensile Bar\Gcode')
+	directory = os.path.expandvars(source_path)
 
 	# Open output stream
-	csv_stream = open('C:/Users/taylo/Downloads/tensile.csv', 'a')
+	csv_stream = open(output_csv, 'a')
 
 	columns = ['numberOfBottomLayers', 'numberOfPerimeters', 'numberOfTopLayers', 'outsidePerimeterExtrusionWidth',
 	           'outsidePerimeterSpeed', 'firstLayerSpeed', 'topInfillSpeed', 'firstLayerExtrusionWidth',
@@ -39,18 +45,16 @@ def import_mc_gcode():
 	           'expandThinWalls', 'MergeOverlappingLines', 'fillThinGaps', 'infillPercent',
 	           'perimeterStartEndOverlapRatio', 'filament used']
 
-	# Write headers
-	# csv_stream.write('Name,')
+	# Write headers if file is empty
+	if os.stat(output_csv).st_size == 0:
+		csv_stream.write('Name,')
+		for c in columns:
+			csv_stream.write("%s," % c)
 
-	# for c in columns:
-	# csv_stream.write("%s," % c)
-
-	# csv_stream.write('\n')
+	csv_stream.write('\n')
 
 	# Loop over all files in gcode folder
 	for file_name in os.listdir(directory):
-
-		file_name = file_name.lower()
 
 		if file_name.endswith(".gcode"):
 			# Collect the name without extension
@@ -91,26 +95,22 @@ def import_mc_gcode():
 	csv_stream.close()
 
 
-# Kick off import on load
-import_mc_gcode();
+def move_files():
+	for files in source:
+		if files.endswith(".gcode"):
+			gcode = os.path.join(files)
+			shutil.move(os.path.join(source_path, gcode), os.path.join(destination_path, gcode))
 
-import shutil
-source_path = "C:/Users/taylo/Documents/Tensile Bar/Gcode/"
+
+# Kick off import on load
+import_mc_gcode()
+
 source = os.listdir(source_path)
-destination = "C:/Users/taylo/Documents/Tensile Bar/Old Files/"
 
 for file_name in source:
-	file_name = file_name.lower()
 	if file_name.endswith(".gcode"):
 		gcode = os.path.join(source_path, file_name)
 		print(gcode)
 
 
-def move_files():
-	for files in source:
-		if files.endswith(".gcode"):
-			gcode = os.path.join(files)
-			shutil.move(os.path.join(source_path, gcode), os.path.join(destination, gcode))
-
-
-move_files();
+move_files()
