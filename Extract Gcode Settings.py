@@ -4,14 +4,26 @@ import os
 from os import path
 import shutil
 from google_sheets import login, upload
+import hashlib
 
-source_path      = "New Gcode/"
+source_path = "New Gcode/"
 destination_path = "Old Gcode/"
-output_csv		 = "slice-settings.csv"
+output_csv = "slice-settings.csv"
+
+'''
+def date():
+	from datetime import date
+	now = date.today()
+	newBatch = open('C:/Users/taylo/Downloads/tensile.csv', 'a')
+	newBatch.write('%s, \n' % now)
+	newBatch.close
+'''
 
 def import_settings(file_path):
 	with open(file_path) as gcode_file:
 		all_lines = gcode_file.readlines()
+		gcodeString = ''.join([str(specimenID) for specimenID in all_lines])
+		ID = hashlib.sha1(gcodeString.encode())
 
 		# Filter to comments with equals
 
@@ -23,8 +35,7 @@ def import_settings(file_path):
 		segments = [x.strip() for x in comment.replace(';', '').strip().split('=')]
 		settings[segments[0]] = segments[1]
 
-	return (settings, all_lines)
-
+	return {'settings': settings, 'all_lines': all_lines, 'id': ID.hexdigest()}
 
 def import_mc_gcode():
 	print(':: Importing data from GCode files')
@@ -73,7 +84,12 @@ def import_mc_gcode():
 		values = []
 
 		# Extract settings
-		(settings, all_lines) = import_settings(full_path)
+		dict = import_settings(full_path)
+
+		settings = dict['settings']
+		all_lines = dict['all_lines']
+		ID = dict['id'].upper()
+
 		if len(settings) > 40:
 			csv_stream.write("%s," % (name_without_extension))
 			values.append(name_without_extension)
@@ -102,6 +118,8 @@ def import_mc_gcode():
 		values.append(nozzle_temp.strip())
 		csv_stream.write('%s' % bed_temp.strip())
 		values.append(bed_temp.strip())
+		csv_stream.write('%s' % ID[0:6])
+		values.append(ID[0:6])
 
 		csv_stream.write('\n')
 		values_batch.append(values)
