@@ -6,9 +6,31 @@ import shutil
 from google_sheets import login, upload
 import hashlib
 
+print(os.path.realpath(__file__))
+print(__file__)
 source_path = "New Gcode/"
 destination_path = "Old Gcode/"
 output_csv = "slice-settings.csv"
+if os.path.isdir('H:') is True:
+	usbSource_path = "H:"
+else:
+	usbSource_path = None
+usbSource = os.listdir(usbSource_path)
+
+for file_name in usbSource:
+	file_name = file_name.lower()
+	if file_name.endswith(".gcode"):
+		gcode = os.path.join(usbSource_path, file_name)
+		print(gcode + " - USB file")
+
+
+def USB_gcode():
+	print("Moving files from USB stick")
+	for files in usbSource:
+		if files.endswith(".gcode"):
+			gcode = os.path.join(files)
+			shutil.move(os.path.join(usbSource_path, gcode), os.path.join(source_path, gcode))
+
 
 '''
 def date():
@@ -18,6 +40,7 @@ def date():
 	newBatch.write('%s, \n' % now)
 	newBatch.close
 '''
+
 
 def import_settings(file_path):
 	with open(file_path) as gcode_file:
@@ -36,6 +59,7 @@ def import_settings(file_path):
 		settings[segments[0]] = segments[1]
 
 	return {'settings': settings, 'all_lines': all_lines, 'id': ID.hexdigest()}
+
 
 def import_mc_gcode():
 	print(':: Importing data from GCode files')
@@ -138,6 +162,7 @@ def move_files():
 
 
 # Kick off import on load
+USB_gcode()
 data = import_mc_gcode()
 
 if len(data) > 0:
