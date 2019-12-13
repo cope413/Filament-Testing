@@ -1,6 +1,7 @@
 import csv
 import os
 import shutil
+from mfi_google import login, upload
 
 source_path = "C:/Users/taylo/Documents/Filament-Testing/MFI Results/"
 destination_path = "C:/Users/taylo/Documents/Filament-Testing/Old MFI"
@@ -22,7 +23,7 @@ def MFI_results(file_path):
 def import_MFI_results():
 	# MatterControl GCode directory
 	directory = os.path.expandvars(r'\Users\taylo\Documents\Filament-Testing\MFI Results')
-
+	mfiValues_batch = []
 	# Open output stream
 	csv_stream = open('C:/Users/taylo/Documents/Filament-Testing/mfi.csv', 'a')
 
@@ -34,7 +35,7 @@ def import_MFI_results():
 	for file_name in os.listdir(directory):
 
 		file_name = file_name.lower()
-
+		mfiValues = []
 		if file_name.endswith(".csv"):
 			# Collect the name without extension
 			sections = os.path.splitext(file_name)
@@ -50,10 +51,13 @@ def import_MFI_results():
 
 		for c in columns:
 			csv_stream.write("%s," % settings[c])
+			mfiValues.append(settings[c])
 		csv_stream.write('\n')
+		mfiValues_batch.append(mfiValues)
 
 
 	csv_stream.close()
+	return mfiValues_batch
 
 
 def move_files():
@@ -65,4 +69,12 @@ def move_files():
 
 
 import_MFI_results()
+mfiData = import_MFI_results()
+
+if len(mfiData) > 0:
+	creds = login()
+	upload(creds, mfiData)
+else:
+	print(':: No MFI data')
+
 move_files()

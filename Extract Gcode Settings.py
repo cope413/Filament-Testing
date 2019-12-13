@@ -6,29 +6,33 @@ import shutil
 from google_sheets import login, upload
 import hashlib
 
-print(os.path.realpath(__file__))
-print(__file__)
 source_path = "New Gcode/"
 destination_path = "Old Gcode/"
 output_csv = "slice-settings.csv"
-if os.path.isdir('H:') is True:
-	usbSource_path = "H:"
-else:
-	usbSource_path = None
-usbSource = os.listdir(usbSource_path)
 
-for file_name in usbSource:
-	file_name = file_name.lower()
-	if file_name.endswith(".gcode"):
-		gcode = os.path.join(usbSource_path, file_name)
-		print(gcode + " - USB file")
+drives = ["F:", "G:", "H:", "I:"]
+
+for drive in drives:
+	try:
+		if os.path.isdir(drive) is True:
+			usbSource_path = drive
+
+			usbSource = os.listdir(usbSource_path)
+			for file_name in usbSource:
+				file_name = file_name.lower()
+				if file_name.endswith(".gcode"):
+					gcode = os.path.join(usbSource_path, file_name)
+					print(gcode)
+	except:
+		pass
 
 
 def USB_gcode():
-	print("Moving files from USB stick")
 	for files in usbSource:
 		if files.endswith(".gcode"):
 			gcode = os.path.join(files)
+			print("Moving files from USB stick")
+			print(gcode)
 			shutil.move(os.path.join(usbSource_path, gcode), os.path.join(source_path, gcode))
 
 

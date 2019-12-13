@@ -17,7 +17,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 # Filament Testing Specimen sheet
 SPREADSHEET_ID = "1tVri6CrL-bwJ5yE0rWfuB90tk2gGPgzlQS7GmYKdL9o"
-RANGE = "Gcode Settings - Raw"
+RANGE = "ISO 527 Test Data - Raw"
 
 def login():
     """Checks for existing credentials and logs into Google if required.
@@ -51,7 +51,7 @@ def upload(creds, data):
     """Appends the supplied data to the Google Sheet.
     """
 
-    print(':: Uploading Gcode Settings to Google')
+    print(':: Uploading Tensile Data to Google')
 
     service = build('sheets', 'v4', credentials=creds)
     body = { 'values': data }
