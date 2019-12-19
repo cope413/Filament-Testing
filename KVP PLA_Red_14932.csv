@@ -1,28 +1,28 @@
-"Operator ID",TAYLOR,
-"Material Reference","KVP PLA",
-"Batch Reference",14932,
-"Test Temperature (°C)",210.0,
-"Test Weight (kg)",2.16000,
-"Preheat Time (secs)",360,
-"Material Density (g/cc)",1.096400,
-"Slice Count",20,
-"Test Distance (mm)",25.40,
-"M.F.I. High Limit (g/10mins)",25.00000,
-"M.F.I. Low Limit (g/10mins)",5.000000,
-"Shear Stress (Pascals)",19663.32,
-"I.V. Shear Stress Corr. Factor (% loss)",0,
+Operator ID,TAYLOR,
+Material Reference,KVP PLA,
+Batch Reference,14932,
+Test Temperature (°C),210,
+Test Weight (kg),2.16,
+Preheat Time (secs),360,
+Material Density (g/cc),1.0964,
+Slice Count,20,
+Test Distance (mm),25.4,
+M.F.I. High Limit (g/10mins),25,
+M.F.I. Low Limit (g/10mins),5,
+Shear Stress (Pascals),19663.32,
+I.V. Shear Stress Corr. Factor (% loss),0,
 ,,
-,"Test 1","Test 2"
-"Start Time","14:54 08/11/2019","18:01 08/11/2019"
-"Preheat Status","In Range","In Range"
-"Extrusion Time (secs)",149.06,141.21
-"M.F.I. (g/10mins)",7.986685,8.421847
-"Shear Rate (1/secs)",13.41070,14.14140
-"Viscosity (Pascal Secs)",1466.240,1390.479
-"Apparent I.V.",0.879132,0.871035
-"M.V.R. (cc/10mins)",7.284464,7.681365
+,Test 1,Test 2
+Start Time,8/11/2019 14:54,8/11/2019 18:01
+Preheat Status,In Range,In Range
+Extrusion Time (secs),149.06,141.21
+M.F.I. (g/10mins),7.986685,8.421847
+Shear Rate (1/secs),13.4107,14.1414
+Viscosity (Pascal Secs),1466.24,1390.479
+Apparent I.V.,0.879132,0.871035
+M.V.R. (cc/10mins),7.284464,7.681365
 ,,
-"Slice No.","Test 1","Test 2"
+Slice No.,Test 1,Test 2
 1,7.382648,7.993695
 2,7.562713,7.982863
 3,7.611567,8.026367
@@ -30,7 +30,7 @@
 5,7.681035,8.380303
 6,7.782501,8.171086
 7,7.844678,8.228147
-8,7.876141,8.286010
+8,7.876141,8.28601
 9,7.918486,8.274372
 10,7.631287,8.452443
 11,8.004556,8.392241
@@ -44,9 +44,9 @@
 19,8.452443,8.912788
 20,8.538193,9.008185
 ,,
-"Slice Mean (g/10mins)",7.986685,8.421847
-"Slice Std Dev.",0.337335,0.296973
+Slice Mean (g/10mins),7.986685,8.421847
+Slice Std Dev.,0.337335,0.296973
 ,,
-"No. of Tests",2,
-"Batch Mean (g/10mins)",8.204266,
-"Batch Std Dev.",0.307706,
+No. of Tests,2,
+Batch Mean (g/10mins),8.204266,
+Batch Std Dev.,0.307706,

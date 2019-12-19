@@ -1,13 +1,15 @@
+
+# THIS IS FOR ASTM 638 TEST REPORTS ONLY!
+
 import os
 import pandas as pd
 import csv
 import shutil
-from tensile_google import login, upload
-
-data_source = "C:/Users/taylo/Documents/Filament-Testing/Tensile Data/"
-xls_destination = "C:/Users/taylo/Documents/Filament-Testing/Old Tensile Data/Excel/"
-csv_destination = "C:/Users/taylo/Documents/Filament-Testing/Old Tensile Data/CSV/"
-output = "C:/Users/taylo/Documents/Filament-Testing/tensile.csv"
+from ASTM_638_google import login, upload
+data_source = "C:/Python Projects/Filament Testing/Tensile Data/ASTM 638/"
+xls_destination = "C:/Python Projects/Filament Testing/Old Tensile Data/Excel/ASTM 638/"
+csv_destination = "C:/Python Projects/Filament Testing/Old Tensile Data/CSV/ASTM 638/"
+output = "C:/Python Projects/Filament Testing/ASTM 638.csv"
 
 
 def convert_XLS():
@@ -18,7 +20,6 @@ def convert_XLS():
 		if file_name.endswith(".xls"):
 			split = os.path.splitext(file_name)
 			xls_name = split[0]
-			print(xls_name)
 			read_file = pd.read_excel(os.path.join(data_source, file_name))
 			read_file.to_csv(os.path.join(data_source, '%s.csv' % xls_name), index=None, header=True)
 			shutil.move(os.path.join(data_source, file_name), os.path.join(xls_destination, file_name))
@@ -31,7 +32,6 @@ def import_Tensile_data():
 		if file_name.endswith(".csv"):
 			chunks = os.path.splitext(file_name)
 			csvName = chunks[0]
-		print(csvName)
 		full_path = os.path.join(tensile_directory, file_name)
 
 		with open(full_path, 'r') as readFile:
@@ -44,21 +44,21 @@ def import_Tensile_data():
 					test_operator = line[9]
 					material = line[12]
 					batch_number = line[15]
-					print("Test Report - " + report_number)
+					# print("Test Report - " + report_number)
 					break
 				for row in reader:   # skips 2nd row of Tensile data report
 					for row in reader: # writes data fields of Tensile reports to csv file
 						tensileValues = []
 						test_number = row[10]
 						specimen_ID = row[11]
-						yield_N = row[12]
-						yield_Strength = row[13]
-						tensile_N = row[14]
-						modulus_Elasticity = row[15]
-						break_Elongation = row[16]
-						yield_Elongation = row[17]
-						tensile_Elongation = row[18]
-						tensile_Strength = row[19]
+						yield_LBS = row[12]
+						yield_Strength_psi = row[13]
+						tensile_LBS = row[14]
+						modulus_Elasticity_psi = row[15]
+						break_Elongation_in = row[16]
+						yield_Elongation_in = row[17]
+						tensile_Elongation_in = row[18]
+						tensile_Strength_psi = row[19]
 						comments = row[20]
 						writeFile.write("%s," % specimen_ID)
 						writeFile.write("%s," % test_number)
@@ -67,14 +67,14 @@ def import_Tensile_data():
 						writeFile.write("%s," % test_operator)
 						writeFile.write("%s," % material)
 						writeFile.write("%s," % batch_number)
-						writeFile.write("%s," % yield_N)
-						writeFile.write("%s," % yield_Strength)
-						writeFile.write("%s," % tensile_N)
-						writeFile.write("%s," % modulus_Elasticity)
-						writeFile.write("%s," % break_Elongation)
-						writeFile.write("%s," % yield_Elongation)
-						writeFile.write("%s," % tensile_Elongation)
-						writeFile.write("%s," % tensile_Strength)
+						writeFile.write("%s," % yield_LBS)
+						writeFile.write("%s," % yield_Strength_psi)
+						writeFile.write("%s," % tensile_LBS)
+						writeFile.write("%s," % modulus_Elasticity_psi)
+						writeFile.write("%s," % break_Elongation_in)
+						writeFile.write("%s," % yield_Elongation_in)
+						writeFile.write("%s," % tensile_Elongation_in)
+						writeFile.write("%s," % tensile_Strength_psi)
 						writeFile.write("%s," % comments)
 						tensileValues.append(specimen_ID)
 						tensileValues.append(test_number)
@@ -83,19 +83,20 @@ def import_Tensile_data():
 						tensileValues.append(test_operator)
 						tensileValues.append(material)
 						tensileValues.append(batch_number)
-						tensileValues.append(yield_N)
-						tensileValues.append(yield_Strength)
-						tensileValues.append(tensile_N)
-						tensileValues.append(modulus_Elasticity)
-						tensileValues.append(break_Elongation)
-						tensileValues.append(yield_Elongation)
-						tensileValues.append(tensile_Elongation)
-						tensileValues.append(tensile_Strength)
+						tensileValues.append(yield_LBS)
+						tensileValues.append(yield_Strength_psi)
+						tensileValues.append(tensile_LBS)
+						tensileValues.append(modulus_Elasticity_psi)
+						tensileValues.append(break_Elongation_in)
+						tensileValues.append(yield_Elongation_in)
+						tensileValues.append(tensile_Elongation_in)
+						tensileValues.append(tensile_Strength_psi)
 						tensileValues.append(comments)
 						writeFile.write('\n')
 						tensileValuesBatch.append(tensileValues)
 
 	return tensileValuesBatch
+
 
 def move_CSV_files():
 	directory = os.path.expandvars(data_source)
@@ -105,7 +106,7 @@ def move_CSV_files():
 		if file_name.endswith(".csv"):
 			split = os.path.splitext(file_name)
 			csv_name = split[0]
-			print("Successfully moved " + csv_name + ".csv")
+			print("Successfully imported & moved:: " + csv_name + ".csv")
 			shutil.move(os.path.join(directory, file_name), os.path.join(csv_destination, file_name))
 
 

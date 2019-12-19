@@ -16,7 +16,6 @@ for drive in drives:
 	try:
 		if os.path.isdir(drive) is True:
 			usbSource_path = drive
-
 			usbSource = os.listdir(usbSource_path)
 			for file_name in usbSource:
 				file_name = file_name.lower()
@@ -34,7 +33,7 @@ def USB_gcode():
 			print("Moving files from USB stick")
 			print(gcode)
 			shutil.move(os.path.join(usbSource_path, gcode), os.path.join(source_path, gcode))
-
+	return gcode
 
 '''
 def date():
@@ -49,8 +48,10 @@ def date():
 def import_settings(file_path):
 	with open(file_path) as gcode_file:
 		all_lines = gcode_file.readlines()
+		all_lines.append(gcode)
 		gcodeString = ''.join([str(specimenID) for specimenID in all_lines])
 		ID = hashlib.sha1(gcodeString.encode())
+		## Convert gcode to list, append file name, hash list to produce unique ID for each gcode
 
 		# Filter to comments with equals
 
