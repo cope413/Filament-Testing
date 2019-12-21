@@ -1,0 +1,12 @@
+43818,Flexural Properties (3 Point),Report No.,147,Test Date,2019-12-19 00:00:00,Testing Machine SSTM-5KN 0819533,Unnamed: 7,Operator,Taylor,Filament MFG,Crunchtech,Filament Type,PLA,Filament Color,Burgandy,Batch #,032519-2,Span,2,"Load Cell S/N (TVI122147), Units (Lbs )",1124,Crosshead Speed ( Inches / min ) or Rate,0.5,Displacement Sensor,XHD-100  ( XHD-100 ),Preload Value ( -Lbs ),20
+Label1,Label8,Label2,Label6,Label7,Label3,Label4,Label5,Text6,Text9,TESTNUM,SPEC_ID,RESULT1,RESULT2,RESULT4,RESULT6,RESULT7,RESULT8,COMMENTS,,,,,,,,,
+,,,,,,,,,,599,9X4HH,0.504,0.131,40,13995,0.64,433525,,,,,,,,,,
+,,,,,,,,,,600,KQSV6,0.506,0.131,40,13998,0.637,455393,,,,,,,,,,
+,,,,,,,,,,601,HZSL9,0.506,0.133,40,13566,0.638,415406,,,,,,,,,,
+,,,,,,,,,,602,LJNAG,0.506,0.132,41,13737,0.632,447134,,,,,,,,,,
+,,,,,,,,,,603,D3FFV,0.506,0.131,40,13796,0.627,434180,,,,,,,,,,
+,,,,,,,,,,604,Y6CHE,0.508,0.135,38,12254,0.211,353535,,,,,,,,,,
+,,,,,,,,,,605,F8Y9H,0.507,0.138,38,11811,0.205,315128,,,,,,,,,,
+,,,,,,,,,,606,ZCLAB,0.508,0.134,38,12461,0.21,357991,,,,,,,,,,
+,,,,,,,,,,607,2LEHH,0.509,0.135,38,12141,0.199,365216,,,,,,,,,,
+,,,,,,,,,,608,A2227,0.507,0.134,38,12453,0.204,394106,,,,,,,,,,

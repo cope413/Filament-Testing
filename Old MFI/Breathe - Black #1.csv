@@ -1,0 +1,52 @@
+"Operator ID",TAYLOR,
+"Material Reference","BREATH PLA",
+"Batch Reference",3380188,
+"Test Temperature (°C)",210.0,
+"Test Weight (kg)",2.16000,
+"Preheat Time (secs)",360,
+"Material Density (g/cc)",1.096400,
+"Slice Count",20,
+"Test Distance (mm)",25.40,
+"M.F.I. High Limit (g/10mins)",15.00000,
+"M.F.I. Low Limit (g/10mins)",5.000000,
+"Shear Stress (Pascals)",19663.32,
+"I.V. Shear Stress Corr. Factor (% loss)",0,
+,,
+,"Test 1","Test 2"
+"Start Time","10:23 04/11/2019","10:35 04/11/2019"
+"Preheat Status","In Range","In Range"
+"Extrusion Time (secs)",81.93,83.74
+"M.F.I. (g/10mins)",14.92382,14.20734
+"Shear Rate (1/secs)",24.39887,23.22749
+"Viscosity (Pascal Secs)",805.9110,846.5537
+"Apparent I.V.",0.791999,0.798824
+"M.V.R. (cc/10mins)",13.61166,12.95817
+,,
+"Slice No.","Test 1","Test 2"
+1,12.56152,13.96055
+2,14.72838,13.89470
+3,14.65510,13.99371
+4,14.58255,13.66903
+5,14.61874,13.66903
+6,14.80239,13.76484
+7,14.83968,13.17976
+8,14.06050,13.86200
+9,15.14486,14.19603
+10,15.06740,14.02703
+11,15.10603,14.06050
+12,15.02896,14.09414
+13,15.34206,14.54655
+14,15.22313,14.51072
+15,15.50356,14.51072
+16,15.30221,14.65510
+17,15.10603,14.72838
+18,15.50356,14.76529
+19,15.46287,14.95267
+20,15.83697,15.10603
+,,
+"Slice Mean (g/10mins)",14.92382,14.20734
+"Slice Std Dev.",0.688965,0.495635
+,,
+"No. of Tests",2,
+"Batch Mean (g/10mins)",14.56558,
+"Batch Std Dev.",0.506632,
